@@ -9,7 +9,7 @@
     # FIXME: The hardened kernel profile improves security but
     # decreases performance by ~50%.
     # Turn it off when not needed.
-    <nix-bitcoin/modules/presets/hardened.nix>
+    #<nix-bitcoin/modules/presets/hardened.nix>
     #
     # You can enable the hardened-extended preset instead to further improve security
     # at the cost of functionality and performance.
@@ -37,14 +37,14 @@
   # nix-bitcoin.onionServices.bitcoind.public = true;
   #
   # You can add options that are not defined in modules/bitcoind.nix as follows
-  # services.bitcoind.extraConfig = ''
-  #   maxorphantx=110
-  # '';
+  services.bitcoind.extraConfig = ''
+    testnet=1
+  '';
 
   ### CLIGHTNING
   # Enable this module to use clightning, a Lightning Network implementation
   # in C.
-  services.clightning.enable = true;
+  # services.clightning.enable = true;
   #
   # Set this to create an onion service by which clightning can accept incoming connections
   # via Tor.
@@ -93,7 +93,7 @@
   ### ELECTRS
   # Enable this module to use electrs, an efficient re-implementation of
   # Electrum Server in Rust.
-  # services.electrs.enable = true;
+  services.electrs.enable = true;
   # If you have more than 8GB memory, enable this option so electrs will
   # sync faster. Only available if hardware wallets are disabled.
   # services.electrs.high-memory = true;
@@ -209,17 +209,14 @@
   # Enable this option to enable the JoinMarket order book watcher.
   # services.joinmarket-ob-watcher.enable = true;
 
-  # FIXME: Define your hostname.
-  networking.hostName = "host";
+  networking.hostName = "tsusanka";
   time.timeZone = "UTC";
 
-  # FIXME: Add your SSH pubkey
   services.openssh.enable = true;
   users.users.root = {
-    openssh.authorizedKeys.keys = [ "" ];
+    openssh.authorizedKeys.keys = [ "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDAQU+S7a5SzL7bOzbyx8ptjFrwARY47831MGV1X7L9LKFTAdI70+a0mZes/XNjJJapNQe4ZptRZ4+fzjw7bwPNe1O6pv62Mz24mfxOrh9U/r9WUyFBiUQ9WJPm3v++Maj5/AaJX9eYUH5RvAHwmMnVirL1JrIJmph6eHdpeHICMkeFv+kx/7aseiOPnto9j+89WNW3f5ioRUgbBFR/+FVwaonbkxNtREOFniYonHi1DENApcjFYq2Q7YvES200B0fon8f9icvAEa9zmUG8Y5zItBVe0oNGfwlmrmfnev9m/BmtKmmJVB0o2o/x6Ju/DwfMvDDr/QweOBE8op808VnB/Rcd9ujKKy5iJjDMls5u4IIsLBFBY3UWxXA23qOYIMwiFDaoXb6FkHYBUJvfcWUt3lYo2cKPrso3r2gXpBoN99jkyTjSXjJ1KEIsqsBmovEkrSLSqf6UbSoNd+LIHBDtsS5UVyzk4hXUG1EfDvaZqXIQZmRDtdC12iDFot1ACya/yVLf3vOhCPilatvkV2w7FyhS3IiQDL7GEqlV/vcXnIsK8ZN7+AKjBiULc79+BZLT8DMXMXWNSc0z5s19+QFdkHQH9tmMuivlydaWpmDCwoAGm+B6hg3oA3w35Yl4YkxLuzDg+ITPds1GTz2kvV4FuHSJpnrBgHtuc+wYCbB5sQ== id_rsa" ];
   };
 
-  # FIXME: add packages you need in your system
   environment.systemPackages = with pkgs; [
     vim
   ];
